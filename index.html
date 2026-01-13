@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoohPavel粉丝站</title>
+    <!-- 引入Bootstrap美化 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .cp-hero {
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .nav-custom {
+            background-color: #2c3e50 !important;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        .bg-light-blue {
+            background-color: #e3f2fd;
+        }
+        .video-thumbnail {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark nav-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-heart-fill me-2" style="color:#ff6b6b"></i>
+                Pooh❤Pavel
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html"><i class="bi bi-house-door"></i> 首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="shows.html"><i class="bi bi-camera-reels"></i> 作品</a></li>
+                    <li class="nav-item"><a class="nav-link" href="videos.html"><i class="bi bi-play-btn"></i> 视频</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html"><i class="bi bi-images"></i> 相册</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html"><i class="bi bi-info-circle"></i> 近况</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin/index.html"><i class="bi bi-pencil-square"></i> 编辑</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 顶部横幅 -->
+    <div class="cp-hero mt-5">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Pooh ❤ Pavel</h1>
+            <p class="lead">泰国人气CP · 最新动态 · 作品合集</p>
+            <div class="mt-4">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80" 
+                     class="avatar" alt="CP头像">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80" 
+                     class="avatar mx-4" alt="CP头像">
+            </div>
+        </div>
+    </div>
+
+    <!-- 最新动态 -->
+    <section class="py-5 bg-light-blue">
+        <div class="container">
+            <h2 class="text-center mb-5"><i class="bi bi-lightning-charge"></i> 最新动态</h2>
+            <div class="row" id="latest-news">
+                <!-- 动态内容会通过JS加载 -->
+                <div class="col-12 text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">加载中...</span>
+                    </div>
+                    <p class="mt-2">正在加载最新内容...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品展示 -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5"><i class="bi bi-film"></i> 热门作品</h2>
+            <div class="row g-4" id="shows-list">
+                <!-- 作品内容会通过JS加载 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>PoohPavel粉丝站</h5>
+                    <p>收集整理Pooh和Pavel的所有作品与动态</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>© 2023 粉丝制作 · 非官方</p>
+                    <p>最后更新: <span id="last-update">加载中...</span></p>
+                    <a href="admin/index.html" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-pencil"></i> 编辑内容
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 脚本 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 显示最后更新时间
+        document.getElementById('last-update').textContent = new Date().toLocaleDateString('zh-CN');
+        
+        // 模拟数据（实际会从JSON文件加载）
+        setTimeout(() => {
+            // 最新动态
+            document.getElementById('latest-news').innerHTML = `
+                <div class="col-md-4">
+                    <div class="card card-hover">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-star-fill text-warning"></i> 新综艺预告</h5>
+                            <p class="card-text">PoohPavel即将参加新综艺节目，预计下月播出！</p>
+                            <span class="badge bg-success">NEW</span>
+                            <small class="text-muted d-block mt-2">2023年11月15日</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-hover">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-camera-video"></i> 直播预告</h5>
+                            <p class="card-text">本周六晚8点，双人联合直播，不要错过！</p>
+                            <span class="badge bg-primary">直播</span>
+                            <small class="text-muted d-block mt-2">2023年11月14日</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-hover">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-heart"></i> 粉丝见面会</h5>
+                            <p class="card-text">曼谷粉丝见面会照片已更新到相册！</p>
+                            <a href="gallery.html" class="btn btn-sm btn-outline-primary">查看相册</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // 作品列表
+            document.getElementById('shows-list').innerHTML = `
+                <div class="col-md-3">
+                    <div class="card card-hover">
+                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250&q=80" 
+                             class="video-thumbnail" alt="综艺封面">
+                        <div class="card-body">
+                            <h5 class="card-title">综艺节目1</h5>
+                            <p class="card-text text-muted">精彩片段合集</p>
+                            <button class="btn btn-primary btn-sm w-100">观看</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-hover">
+                        <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250&q=80" 
+                             class="video-thumbnail" alt="电视剧封面">
+                        <div class="card-body">
+                            <h5 class="card-title">电视剧系列</h5>
+                            <p class="card-text text-muted">最新剧集更新</p>
+                            <button class="btn btn-primary btn-sm w-100">观看</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-hover">
+                        <img src="https://images.unsplash.com/photo-1489599809516-9827b6d1cf13?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250&q=80" 
+                             class="video-thumbnail" alt="采访封面">
+                        <div class="card-body">
+                            <h5 class="card-title">独家采访</h5>
+                            <p class="card-text text-muted">深度对话</p>
+                            <button class="btn btn-primary btn-sm w-100">观看</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-hover">
+                        <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250&q=80" 
+                             class="video-thumbnail" alt="活动封面">
+                        <div class="card-body">
+                            <h5 class="card-title">粉丝活动</h5>
+                            <p class="card-text text-muted">见面会全程记录</p>
+                            <button class="btn btn-primary btn-sm w-100">观看</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }, 1000);
+    </script>
+</body>
+</html>

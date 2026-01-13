@@ -1,2 +1,0 @@
-# poohpavel-fansite
-poohpavel
